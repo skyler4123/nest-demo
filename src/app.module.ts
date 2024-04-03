@@ -5,16 +5,13 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
+import 'dotenv/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "192.168.1.4",
-      port: 5432,
-      username: "postgres",
-      password: "password",
-      database: "postgres",
+      type: 'postgres',
+      url: process.env.DB_URL,
       synchronize: true,
       logging: true,
       entities: [User],
@@ -22,7 +19,7 @@ import { User } from './users/entities/user.entity';
       migrations: [],
     }),
     UsersModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
